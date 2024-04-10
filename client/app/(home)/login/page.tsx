@@ -23,7 +23,7 @@ export default function page() {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="m@example.com" 
                 required />
             </div>
             <div className="grid gap-4">
