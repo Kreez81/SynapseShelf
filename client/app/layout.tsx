@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Exo_2 } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import { Toaster } from "@/components/ui/sonner"
 
 const exo2 = Exo_2({ subsets: ["latin"] });
 
@@ -44,12 +45,13 @@ export default function RootLayout({
       <body className={exo2.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           {children}
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );
