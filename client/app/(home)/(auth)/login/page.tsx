@@ -29,26 +29,25 @@ export default function LogPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`/` + user.email, {
+      const res = await fetch(`http://localhost:8080/api/get-user/${encodeURIComponent(user.email)}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const userData = await res.json();
-      if (!userData) {
+      if (res.status == 204) {
         toast.error("Account doesn't exist!");
         setLoading(false);
         return;
       }
-
+      const userData = await res.json();
       // Compare the password
       if (userData.password !== user.password) {
         toast.error("Incorrect password!");
         setLoading(false);
         return;
       }
-      // router.push("/dashboard");
+      router.push("/dashboard");
     } catch (error) {
       console.error(error);
     }

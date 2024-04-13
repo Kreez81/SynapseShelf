@@ -37,20 +37,24 @@ export default function SignPage() {
         }
         try {
             //check whether email already exists
-            const res = await fetch('', {
+            const res = await fetch(`http://localhost:8080/api/get-user/${encodeURIComponent(user.email)}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
-            const userExist = await res.json();
-            if (userExist) {
+            if (!res.ok) {
+                toast.error("Something went wrong!");
+                setLoading(false);
+                return;
+            }
+            if(res.status == 200){
                 toast.error("User with this email already exists!");
                 setLoading(false);
                 return;
             }
-            //create new user 
-            const userRes = await fetch('', {
+            // create new user 
+            const userRes = await fetch(`http://localhost:8080/api/create-user`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
